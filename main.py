@@ -4,6 +4,10 @@ name = name.strip()
 
 name = name.title()
 
+first, last = name.split(" ")
+
+print(first, last)
+
 print("hello ", name, end="\n", sep="")
 
 print("\"So how do you add a quote?\" - Asked " + name)
