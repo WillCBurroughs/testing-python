@@ -6,6 +6,9 @@ while continue_running:
     first_value = float(input("What is first Number? "))
     second_value = float(input("What would you like for second Number? "))
     hold_result = 0
+    firstValue = float(input("What is first Number? "))
+    secondValue = float(input("What would you like for second Number? "))
+
     math_operation = int(input("1 for addition, 2 for subtraction, 3 for multiplication, 4 for division "))
 
     if math_operation == 1:
