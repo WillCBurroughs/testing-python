@@ -1,4 +1,4 @@
-import random 
+from random import choice
 
 def main():
     repeat_times = int(input("How many times to flip? "))
@@ -6,7 +6,7 @@ def main():
 
 # Simple program to randomly flip coin
 def flip_coin():
-    return random.choice(["Heads","Tails"])
+    return choice(["Heads","Tails"])
 
 # Flip the coin given numbers of times and get true percentages 
 def get_percentages(times_to_repeat):
