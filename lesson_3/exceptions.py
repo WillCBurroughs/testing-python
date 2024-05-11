@@ -1,11 +1,15 @@
+def main():
+   x = get_int()
+   print(f"x is {x}")
+
 
 # will keep asking user for value until acceptable value
-while True:
-    try:
-        x = int(input("What's x? "))
-    except ValueError:
-        print("X is not an integer")
-    else:
-        break
+def get_int():
+    while True:
+        try:
+            x = int(input("What's x? "))
+            return x
+        except ValueError:
+            print("X is not an integer")
 
-print(f"x is {x}")
+main()
