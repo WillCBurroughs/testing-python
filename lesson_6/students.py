@@ -1,19 +1,11 @@
+import csv
+
 students = []
 
 with open("students.csv") as file:
-    for line in file:
-        name, house = line.rstrip().split(",")
+    reader = csv.DictReader(file)
+    for row in reader:
+        students.append({"name": row["name"], "home": row["home"]})
 
-        # Making dict of student to place
-        student = {"name": name, "house": house}
-        students.append(student)
-
-def get_name(student):
-    return student["name"]
-
-def get_house(student):
-    return student["house"]
-
-for student in sorted(students, key = lambda student: student["name"], reverse=True):
-    print(f"{student['name']} is in house {student['house']}")
-
+for student in sorted(students, key=lambda student: student["name"]):
+    print(f"{student['name']} is from {student['home']}")
