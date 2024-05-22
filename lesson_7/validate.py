@@ -8,3 +8,5 @@ if re.search(r"^\w+@(\w+\.)?\w+\.edu$", email, re.IGNORECASE):
     print("Valid")
 else:
     print("Invalid")
+
+# This lesson does a great job of showing why we should use Regex Libraries for validation rather than making the expression ourselves
