@@ -21,6 +21,14 @@ class Student:
                 return "🐕"
             case _:
                 return "🪄"
+    # Getter
+    def house(self)
+        return self.house
+    # Setter
+    def house(self, house)
+        self.house = house
+
+
 
 def main():
     student = get_student()
