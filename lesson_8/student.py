@@ -3,8 +3,6 @@ class Student:
         if not name: 
             raise ValueError("Missing Name")
         self.name = name 
-        if house not in ["Gryffindor", "Slytherin", "Hufflepuff", "Ravenclaw"]:
-            raise ValueError("Invalid House")
         self.house = house
         self.patronus = patronus
 
@@ -21,14 +19,26 @@ class Student:
                 return "🐕"
             case _:
                 return "🪄"
-    # Getter
-    def house(self)
-        return self.house
-    # Setter
-    def house(self, house)
-        self.house = house
+    
+    @property
+    def name(self):
+        return self._name
 
+    @name.setter
+    def name(self, name)
+        if not name:
+            raise ValueError("Missing name")
+        self._name = name
 
+    @property
+    def house(self):
+        return self._house
+    
+    @house.setter
+    def house(self, house):
+        if house not in ["Gryffindor", "Slytherin", "Hufflepuff", "Ravenclaw"]:
+            raise ValueError("Invalid House")
+        self._house = house
 
 def main():
     student = get_student()
