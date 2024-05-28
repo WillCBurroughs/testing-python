@@ -6,3 +6,6 @@
 
 Count this line 
 So should be two total lines here 
+Now there should be three total 
+
+  # don't count me
