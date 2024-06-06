@@ -1,5 +1,10 @@
 def meow(n: int) -> None:
-    """Meow N times"""
+    """
+    DocuString
+    Meow N times
+    :param n: Number of times to meow
+    :type n: int
+    """
     for _ in range(n):
         print("meow")
 
