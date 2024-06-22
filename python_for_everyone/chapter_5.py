@@ -14,7 +14,12 @@ def main():
             print(user_sum, user_total, user_average)
             break
 
-        test_input = int(test_input)
+        try:
+            test_input = int(test_input)
+        except:
+            print("Must give a number")
+            continue
+            
 
         user_sum += test_input
         user_total += 1
