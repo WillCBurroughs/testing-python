@@ -17,4 +17,5 @@ while actual_num != user_guess:
         print("Your guess was too large")
     user_guess = int(input("Guess a number between 1 and 10 "))
         
-print("Congradulations! you guessed the number")
+print("Congratulations! you guessed the number")
+
