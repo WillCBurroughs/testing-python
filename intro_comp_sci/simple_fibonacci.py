@@ -7,8 +7,29 @@ Created on Mon Jul 15 21:02:25 2024
 """
 
 def main():
-    user_input = int(input("What value would you like to go to? "))
-    print(get_fib(user_input))
+    continue_fib = True
+    while(continue_fib):
+        invalid = True
+        while(invalid):
+            try:
+                user_input = int(input("What value would you like to go to? "))
+                invalid = False
+            except:
+                print("Invalid input")
+    
+        print(get_fib(user_input))
+        
+        invalid_continue = True
+        while(invalid_continue):
+            continue_string = input("Would you like to continue? y/n ").lower()
+            if(continue_string == "y" or continue_string == "n"):
+                invalid_continue = False 
+                if(continue_string == "n"):
+                    continue_fib = False
+                else:
+                    break
+                
+    print("Thank you for using the fibonacci calculator!! ")
     
 def get_fib(value):
     first_fib = 1 
@@ -23,7 +44,6 @@ def get_fib(value):
         iteration += 1
         
     return second_fib
-    
     
 if __name__ == "__main__":
     main()
