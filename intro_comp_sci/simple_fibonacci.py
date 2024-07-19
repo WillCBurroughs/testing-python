@@ -27,12 +27,14 @@ def main():
             print(get_fib(user_input))
         elif selected_return == "2":
             print(get_first_fibs(user_input))
+        elif selected_return == "3":
+            print(get_all_vals_up_to_x(user_input))
         else:
             print("Invalid option")
         
         invalid_continue = True
         
-        # Determines if users desires to continue 
+        # Determines if user desires to continue 
         while(invalid_continue):
             continue_string = input("Would you like to continue? y/n ").lower()
             if(continue_string == "y" or continue_string == "n"):
@@ -69,14 +71,25 @@ def get_first_fibs(value):
         total_values += 1 
     
     return return_values
+
+# This will get all the values up to x fib
+def get_all_vals_up_to_x(value):
+    return_values = []
+    continue_fib = 0
     
+    while(value >= get_fib(continue_fib)):
+        return_values.append(get_fib(continue_fib))
+        continue_fib += 1 
+        
+    return return_values
+        
     
 if __name__ == "__main__":
     main()
     
     
     # Next things to add, option 3 - get all less than value x, Adding option to write to files, ability to choose file names make new ones (etc)
-    # Add UI Component 
+    # Turn control flow into functions, Add UI Component, add memoization 
     
     
     
