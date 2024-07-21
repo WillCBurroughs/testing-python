@@ -21,16 +21,25 @@ def main():
         
         # Ask user what type of fibonacci values they would like 
         selected_return = input("What type of fib would you like? 1. Get xth fib value, 2. Get all first x fib values, 3. All fibs up to x value ")
+        current_return = ""
         
         # Testing user's input
         if selected_return == "1":
-            print(get_fib(user_input))
+            current_return = str(get_fib(user_input))
+            print(current_return)
         elif selected_return == "2":
-            print(get_first_fibs(user_input))
+            current_return = str(get_first_fibs(user_input))
+            print(current_return)
         elif selected_return == "3":
-            print(get_all_vals_up_to_x(user_input))
+            current_return = str(get_all_vals_up_to_x(user_input))
+            print(current_return)
         else:
             print("Invalid option")
+        
+        user_save = input("Would you like to write this information? y/n ")
+        if user_save.lower() == "y":
+            file_name = input("What name would you like to save the file to? ")
+            write_to_file(file_name, current_return)
         
         invalid_continue = True
         
@@ -60,6 +69,14 @@ def get_fib(value):
         
     return first_fib
 
+# Used to write to file 
+def write_to_file(file_name, file_information):
+    try:
+        with open(file_name, "w") as fhand:  # Use 'with' to ensure the file is properly closed
+            fhand.write(file_information)
+    except Exception as e:  # Catch-all for exceptions
+        print("Something went wrong:", e)
+
 # This will get the first x amount of fib values
 def get_first_fibs(value):
     return_values = []
@@ -88,7 +105,7 @@ if __name__ == "__main__":
     main()
     
     
-    # Next things to add, option 3 - get all less than value x, Adding option to write to files, ability to choose file names make new ones (etc)
+    # Adding option to write to files, ability to choose file names make new ones (etc)
     # Turn control flow into functions, Add UI Component, add memoization 
     
     
