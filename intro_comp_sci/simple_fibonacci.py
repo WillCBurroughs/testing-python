@@ -23,39 +23,13 @@ def main():
         selected_return = input("What type of fib would you like? 1. Get xth fib value, 2. Get all first x fib values, 3. All fibs up to x value ")
         current_return = ""
         
-        # Testing user's input
-        if selected_return == "1":
-            current_return = str(get_fib(user_input))
-            print(current_return)
-        elif selected_return == "2":
-            current_return = str(get_first_fibs(user_input))
-            print(current_return)
-        elif selected_return == "3":
-            current_return = str(get_all_vals_up_to_x(user_input))
-            print(current_return)
-        else:
-            print("Invalid option")
+        # Testing user's input, turn to function 
+        current_return = select_fib_type(selected_return, user_input)
         
-        user_save = input("Would you like to write this information? y/n ")
-        if user_save.lower() == "y":
-            file_name = input("What name would you like to save the file to? ")
-            write_or_append = input("Would you like to: 1. Add this to a text file 2. Write a new file ")
-            if write_or_append == "1":
-                add_to_file(file_name, current_return)
-            else:
-                write_to_file(file_name, current_return)
+        # Turn this to function 
+        write_information_out(current_return)
         
-        invalid_continue = True
-        
-        # Determines if user desires to continue 
-        while(invalid_continue):
-            continue_string = input("Would you like to continue? y/n ").lower()
-            if(continue_string == "y" or continue_string == "n"):
-                invalid_continue = False 
-                if(continue_string == "n"):
-                    continue_fib = False
-                else:
-                    break
+        continue_fib = continue_fibonacci()
                 
     print("Thank you for using the fibonacci calculator!! ")
     
@@ -112,13 +86,51 @@ def get_all_vals_up_to_x(value):
         
     return return_values
         
-    
+# Control flow for selecting fibonacci tyoe
+def select_fib_type(selected_return, user_input):
+    if selected_return == "1":
+        current_return = str(get_fib(user_input))
+    elif selected_return == "2":
+        current_return = str(get_first_fibs(user_input))
+    elif selected_return == "3":
+        current_return = str(get_all_vals_up_to_x(user_input))
+    else:
+        print("Invalid option")
+    print(current_return)
+    return current_return 
+        
+
+# Control flow for writing info
+def write_information_out(current_return):
+    user_save = input("Would you like to write this information? y/n ")
+    if user_save.lower() == "y":
+        file_name = input("What name would you like to save the file to? ")
+        write_or_append = input("Would you like to: 1. Add this to a text file 2. Write a new file ")
+        if write_or_append == "1":
+            add_to_file(file_name, current_return)
+        else:
+            write_to_file(file_name, current_return)
+
+# Used to decide if user should continue 
+def continue_fibonacci() -> bool:
+    invalid_continue = True
+
+    # Determines if user desires to continue
+    while invalid_continue:
+        continue_string = input("Would you like to continue? y/n ").lower()
+        if continue_string in ("y", "n"):
+            invalid_continue = False
+            if continue_string == "n":
+                return False
+            else:
+                return True
+
 if __name__ == "__main__":
     main()
     
-    
-    # ability to choose file names make new ones (etc), ability to append and delete files 
-    # Turn control flow into functions, Add UI Component, add memoization 
+     
+    # Turn control flow into functions, Add imports from other files, Add UI Component, add memoization 
+    # Add ability to add multiple rows of values (like calling get_first_fibs in for loop)
     
     
     
