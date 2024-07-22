@@ -39,7 +39,11 @@ def main():
         user_save = input("Would you like to write this information? y/n ")
         if user_save.lower() == "y":
             file_name = input("What name would you like to save the file to? ")
-            write_to_file(file_name, current_return)
+            write_or_append = input("Would you like to: 1. Add this to a text file 2. Write a new file ")
+            if write_or_append == "1":
+                add_to_file(file_name, current_return)
+            else:
+                write_to_file(file_name, current_return)
         
         invalid_continue = True
         
@@ -76,6 +80,14 @@ def write_to_file(file_name, file_information):
             fhand.write(file_information)
     except Exception as e:  # Catch-all for exceptions
         print("Something went wrong:", e)
+        
+# Used to add text to file 
+def add_to_file(file_name, file_information):
+    try:
+        with open(file_name, "a") as fhand:  
+            fhand.write("\n" + file_information)
+    except Exception as e:  # Catch-all for exceptions
+        print("Something went wrong:", e)
 
 # This will get the first x amount of fib values
 def get_first_fibs(value):
@@ -105,7 +117,7 @@ if __name__ == "__main__":
     main()
     
     
-    # Adding option to write to files, ability to choose file names make new ones (etc)
+    # ability to choose file names make new ones (etc), ability to append and delete files 
     # Turn control flow into functions, Add UI Component, add memoization 
     
     
