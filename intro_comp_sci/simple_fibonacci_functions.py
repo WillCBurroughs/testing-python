@@ -81,3 +81,13 @@ def continue_fibonacci() -> bool:
                 return False
             else:
                 return True
+
+def set_input() -> int:
+    invalid = True
+    while invalid:
+        try:
+            user_input = int(input("What value would you like to go to? "))
+            invalid = False
+        except ValueError:
+            print("Invalid input")
+    return user_input
