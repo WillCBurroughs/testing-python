@@ -7,21 +7,15 @@ Created on Mon Jul 15 21:02:25 2024
 """
 
 from simple_fibonacci_functions import (
-    select_fib_type, write_information_out, continue_fibonacci
+    select_fib_type, write_information_out, continue_fibonacci, set_input
 )
 
 def main():
     continue_fib = True
     while continue_fib:
-        invalid = True
         
-        while invalid:
-            try:
-                user_input = int(input("What value would you like to go to? "))
-                invalid = False
-            except ValueError:
-                print("Invalid input")
-        
+        user_input = set_input()
+
         selected_return = input("What type of fib would you like? 1. Get xth fib value, 2. Get all first x fib values, 3. All fibs up to x value ")
         
         current_return = select_fib_type(selected_return, user_input)
@@ -35,7 +29,6 @@ def main():
 if __name__ == "__main__":
     main()
     
-     
     # Add UI Component, add memoization 
     # Add ability to add multiple rows of values (like calling get_first_fibs in for loop)
     
