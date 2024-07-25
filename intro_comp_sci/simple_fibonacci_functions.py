@@ -1,16 +1,30 @@
+# A dictionary to store previously computed Fibonacci values
+fib_cache = {}
+
 def get_fib(value):
+    # Check if the value is in the cache
+    if value in fib_cache:
+        return fib_cache[value]
+    
+    # Base cases for 0 and 1
+    if value == 0:
+        return 0
+    elif value == 1:
+        return 1
+
     first_fib = 0
     second_fib = 1
-    hold_fib = 0
-    iteration = 1
-    
-    while iteration < value:
-        hold_fib = first_fib 
+
+    # Start calculating from the 2nd Fibonacci number onward
+    for iteration in range(2, value + 1):
+        hold_fib = first_fib + second_fib
         first_fib = second_fib
-        second_fib = hold_fib + second_fib
-        iteration += 1
-        
-    return first_fib
+        second_fib = hold_fib
+
+    # Store the computed value in the cache
+    fib_cache[value] = second_fib
+
+    return second_fib
 
 def write_to_file(file_name, file_information):
     try:
