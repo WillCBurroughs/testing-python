@@ -31,6 +31,11 @@ def main():
             new_items = input("What value would you like to add? ")
             todo.add_item(name, password, new_items)
 
+    save_values = input("Would you like to save the values you added? y/n ")
+    if save_values == "y":
+        file_name = input("What file name would you like to save this to? ")
+        todo.write_information(name, file_name)
+
     print("Thank you for using ToDoList")
     
 
@@ -64,9 +69,16 @@ class ToDoList:
             return self.accounts[name]['to_do_items']
         return "Incorrect password or account does not exist."
 
+    # will write information in specified file 
+    def write_information(self, name, file_name):
+        file = open(file_name, "a")
+        file.write(" ".join(self.accounts[name]['to_do_items']))
+        file.close()
+        
 if __name__ == "__main__":
     main()
 
 # Stages to this: Have ability to write new items, create objects that contain abilities and information
+# Make objects persist 
 # Have ability to edit items, have ability to delete items, Have user sign-in, store information in database 
 # Move functionality to different modules, Add UI for users 
