@@ -81,5 +81,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    # Add memoization 
     # Add ability to add multiple rows of values (like calling get_first_fibs in for loop)
