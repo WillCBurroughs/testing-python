@@ -23,6 +23,7 @@ def main():
 
     # New information to write for ToDoList
     while(True):
+        print(todo.read_profile(name, password))
         continue_input = input("Would you like to add new values? y/n ")
         if continue_input == "n":
             break
@@ -57,7 +58,11 @@ class ToDoList:
             self.accounts[name]['to_do_items'].append(item)
             return "Item added successfully."
         return "Incorrect password or account does not exist."
-
+   
+    def read_profile(self, name, password):
+        if self.verify_account(name, password):
+            return self.accounts[name]['to_do_items']
+        return "Incorrect password or account does not exist."
 
 if __name__ == "__main__":
     main()
