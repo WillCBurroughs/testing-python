@@ -1,3 +1,46 @@
+import json
+import os
+
+class ToDoList:
+    def __init__(self):
+        self.accounts = {}
+        self.load_data()
+
+    def check_account(self, name):
+        return name in self.accounts
+
+    def verify_account(self, name, password):
+        if name in self.accounts:
+            return self.accounts[name]['password'] == password
+        return False
+
+    def create_account(self, name, password):
+        if name not in self.accounts:
+            self.accounts[name] = {'password': password, 'to_do_items': []}
+            self.save_data()
+            return "Account created successfully."
+        return "Account already exists."
+
+    def add_item(self, name, password, item):
+        if self.verify_account(name, password):
+            self.accounts[name]['to_do_items'].append(item)
+            self.save_data()
+            return "Item added successfully."
+        return "Incorrect password or account does not exist."
+
+    def read_profile(self, name, password):
+        if self.verify_account(name, password):
+            return self.accounts[name]['to_do_items']
+        return "Incorrect password or account does not exist."
+
+    def save_data(self):
+        with open('todolist_data.json', 'w') as file:
+            json.dump(self.accounts, file)
+
+    def load_data(self):
+        if os.path.exists('todolist_data.json'):
+            with open('todolist_data.json', 'r') as file:
+                self.accounts = json.load(file)
 
 def main():
     todo = ToDoList()
@@ -31,54 +74,10 @@ def main():
             new_items = input("What value would you like to add? ")
             todo.add_item(name, password, new_items)
 
-    save_values = input("Would you like to save the values you added? y/n ")
-    if save_values == "y":
-        file_name = input("What file name would you like to save this to? ")
-        todo.write_information(name, file_name)
-
     print("Thank you for using ToDoList")
-    
 
-
-class ToDoList:
-    def __init__(self):
-        self.accounts = {}
-
-    def check_account(self, name):
-        return name in self.accounts
-
-    def verify_account(self, name, password):
-        if name in self.accounts:
-            return self.accounts[name]['password'] == password
-        return False
-
-    def create_account(self, name, password):
-        if name not in self.accounts:
-            self.accounts[name] = {'password': password, 'to_do_items': []}
-            return "Account created successfully."
-        return "Account already exists."
-
-    def add_item(self, name, password, item):
-        if self.verify_account(name, password):
-            self.accounts[name]['to_do_items'].append(item)
-            return "Item added successfully."
-        return "Incorrect password or account does not exist."
-   
-    def read_profile(self, name, password):
-        if self.verify_account(name, password):
-            return self.accounts[name]['to_do_items']
-        return "Incorrect password or account does not exist."
-
-    # will write information in specified file 
-    def write_information(self, name, file_name):
-        file = open(file_name, "a")
-        file.write(" ".join(self.accounts[name]['to_do_items']))
-        file.close()
-        
 if __name__ == "__main__":
     main()
 
-# Stages to this: Have ability to write new items, create objects that contain abilities and information
-# Make objects persist 
 # Have ability to edit items, have ability to delete items, Have user sign-in, store information in database 
 # Move functionality to different modules, Add UI for users 
