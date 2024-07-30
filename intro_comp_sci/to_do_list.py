@@ -41,6 +41,8 @@ class ToDoList:
         if os.path.exists('todolist_data.json'):
             with open('todolist_data.json', 'r') as file:
                 self.accounts = json.load(file)
+    
+    # Used to edit 
 
 def main():
     todo = ToDoList()
