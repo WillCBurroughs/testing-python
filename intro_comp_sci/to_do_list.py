@@ -42,7 +42,16 @@ class ToDoList:
             with open('todolist_data.json', 'r') as file:
                 self.accounts = json.load(file)
     
-    # Used to edit 
+    # Edit information at the given index
+    def edit_information(self, name, password, index, new_info):
+        if self.verify_account(name, password):
+            if 0 <= index < len(self.accounts[name]['to_do_items']):
+                self.accounts[name]['to_do_items'][index] = new_info
+                self.save_data()
+                return "Item edited successfully."
+            else:
+                return "Invalid index."
+        return "Incorrect password or account does not exist."
 
 def main():
     todo = ToDoList()
@@ -56,7 +65,7 @@ def main():
         while(True):
 
             # Condition with incorrect verification 
-            if(todo.verify_account(name,password) is False):
+            if(todo.verify_account(name, password) is False):
                 password = input("Incorrect Password, what is the password for this account? ")
             # When password is correct, break out of loop
             else:
@@ -68,13 +77,24 @@ def main():
 
     # New information to write for ToDoList
     while(True):
-        print(todo.read_profile(name, password))
-        continue_input = input("Would you like to add new values? y/n ")
-        if continue_input == "n":
+        items = todo.read_profile(name, password)
+        print(items)
+        action = input("What would you like to do? (add/edit/quit) ").lower()
+        if action == "quit":
             break
-        else:
+        elif action == "add":
             new_items = input("What value would you like to add? ")
             todo.add_item(name, password, new_items)
+        elif action == "edit":
+            try:
+                index = int(input("Enter the index of the item you want to edit: "))
+                new_info = input("Enter the new information: ")
+                result = todo.edit_information(name, password, index, new_info)
+                print(result)
+            except ValueError:
+                print("Please enter a valid number for the index.")
+        else:
+            print("Invalid action. Please choose 'add', 'edit', or 'quit'.")
 
     print("Thank you for using ToDoList")
 
