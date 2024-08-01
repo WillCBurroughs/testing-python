@@ -53,6 +53,16 @@ class ToDoList:
                 return "Invalid index."
         return "Incorrect password or account does not exist."
 
+    def delete_item(self, name, password, index):
+        if self.verify_account(name, password):
+            if 0 <= index < len(self.accounts[name]['to_do_items']):
+                del self.accounts[name]['to_do_items'][index] 
+                self.save_data()
+                return "Item edited successfully."
+            else:
+                return "Invalid index."
+        return "Incorrect password or account does not exist."
+
 def main():
     todo = ToDoList()
 
@@ -79,7 +89,7 @@ def main():
     while(True):
         items = todo.read_profile(name, password)
         print(items)
-        action = input("What would you like to do? (add/edit/quit) ").lower()
+        action = input("What would you like to do? (add/edit/delete/quit) ").lower()
         if action == "quit":
             break
         elif action == "add":
@@ -93,8 +103,15 @@ def main():
                 print(result)
             except ValueError:
                 print("Please enter a valid number for the index.")
+        elif action == "delete":
+            try:
+                index = int(input("Enter the index of the item you want to delete: "))
+                result = todo.delete_item(name, password, index)
+                print(result)
+            except ValueError:
+                print("Please enter a valid number for the index.")
         else:
-            print("Invalid action. Please choose 'add', 'edit', or 'quit'.")
+            print("Invalid action. Please choose 'add', 'edit', 'delete', or 'quit'.")
 
     print("Thank you for using ToDoList")
 
