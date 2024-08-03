@@ -67,13 +67,35 @@ class ToDoList:
         return "Incorrect password or account does not exist."
 
 def main():
+
+    global save_name, save_password
+
+    # Allows for main call to Tkinter 
     root = Tk()
+
+    # Creates new frame for Tkinter 
     frm = ttk.Frame(root, padding=10)
     frm.grid()
-    ttk.Label(frm, text="Hello World!").grid(column=0, row=0)
-    ttk.Button(frm, text="Quit", command=root.destroy).grid(column=1, row=0)
+
+    # Main label of grid 
+    ttk.Label(frm, text="Username: ").grid(column=0, row=0)
+
+    # Input for name 
+    save_name = ttk.Entry(frm).grid(column=1, row=0)
+
+    # Main label of grid 
+    ttk.Label(frm, text="Password: ").grid(column=0, row=1)
+
+    # Input for name 
+    save_name = ttk.Entry(frm).grid(column=1, row=1)
+
+    # Used to close program
+    ttk.Button(frm, text="Login", command=root.destroy).grid(column=1, row=2)
+
+    # Used to run program
     root.mainloop()
 
+    # Used to call main ToDoList function
     todo = ToDoList()
 
     # Get information to save for ToDoList
