@@ -66,9 +66,13 @@ class ToDoList:
                 return "Invalid index."
         return "Incorrect password or account does not exist."
 
+# changing name of root 
+def complete_sign_in():
+    root.title("To Do App")
+
 def main():
 
-    global save_name, save_password
+    global save_name, save_password, root
 
     # Allows for main call to Tkinter 
     root = Tk()
@@ -77,7 +81,9 @@ def main():
     frm = ttk.Frame(root, padding=10)
     frm.grid()
 
-    # Main label of grid 
+    root.title("Sign In")
+
+    # Input labels
     ttk.Label(frm, text="Username: ").grid(column=0, row=0)
 
     # Input for name 
@@ -90,7 +96,7 @@ def main():
     save_name = ttk.Entry(frm).grid(column=1, row=1)
 
     # Used to close program
-    ttk.Button(frm, text="Login", command=root.destroy).grid(column=1, row=2)
+    ttk.Button(frm, text="Login", command=complete_sign_in).grid(column=1, row=2)
 
     # Used to run program
     root.mainloop()
