@@ -1,5 +1,8 @@
 import json
 import os
+from tkinter import *
+from tkinter import ttk
+
 
 class ToDoList:
     def __init__(self):
@@ -64,6 +67,13 @@ class ToDoList:
         return "Incorrect password or account does not exist."
 
 def main():
+    root = Tk()
+    frm = ttk.Frame(root, padding=10)
+    frm.grid()
+    ttk.Label(frm, text="Hello World!").grid(column=0, row=0)
+    ttk.Button(frm, text="Quit", command=root.destroy).grid(column=1, row=0)
+    root.mainloop()
+
     todo = ToDoList()
 
     # Get information to save for ToDoList
@@ -118,5 +128,5 @@ def main():
 if __name__ == "__main__":
     main()
 
-# Have ability to edit items, have ability to delete items, Have user sign-in, store information in database 
+# Need to add UI with functions, Have ability to edit items, have ability to delete items, Have user sign-in, store information in database 
 # Move functionality to different modules, Add UI for users 
