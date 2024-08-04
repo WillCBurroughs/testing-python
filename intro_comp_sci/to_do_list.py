@@ -66,13 +66,52 @@ class ToDoList:
                 return "Invalid index."
         return "Incorrect password or account does not exist."
 
+# Need to test and load in users
+def validate_user():
+    print("Validated")
+
+    name = save_name.get()
+    password = save_password.get()
+
+    # If there is an account present with this name
+    if todo.check_account(name):
+        if not todo.verify_account(name, password):
+            incorrect_password()
+        else:
+            switch_to_main()
+    else:
+        todo.create_account(name, password)
+        switch_to_main()
+
+# Used to flash incorrect password
+def incorrect_password():
+    incorrect_password_label = ttk.Label(frm, text="Incorrect Password, try again or create new account")
+    incorrect_password_label.grid(column=1, row=3)
+
+def switch_to_main():
+    # Need to change name of root 
+    root.title("To Do App")
+
+    # Need to remove frame and add new frame 
+    frm.destroy()
+
+    # Need to add new frame and load in called in values
+    new_home = ttk.Frame(root, padding=10)
+    
+    ttk.Label(new_home, text="Here are your list items: ").grid(column=0, row=0)
+
+    new_home.pack()
+
 # changing name of root 
 def complete_sign_in():
-    root.title("To Do App")
+
+    # Need to validate user sign in, then switch to main
+    if validate_user():
+        switch_to_main()
 
 def main():
 
-    global save_name, save_password, root
+    global save_name, save_password, root, frm, new_home, ttk, todo
 
     # Allows for main call to Tkinter 
     root = Tk()
@@ -87,41 +126,28 @@ def main():
     ttk.Label(frm, text="Username: ").grid(column=0, row=0)
 
     # Input for name 
-    save_name = ttk.Entry(frm).grid(column=1, row=0)
+    save_name = ttk.Entry(frm)
+    save_name.grid(column=1, row=0)
 
     # Main label of grid 
     ttk.Label(frm, text="Password: ").grid(column=0, row=1)
 
     # Input for name 
-    save_name = ttk.Entry(frm).grid(column=1, row=1)
+    save_password = ttk.Entry(frm, show='*')
+    save_password.grid(column=1, row=1)
 
     # Used to close program
     ttk.Button(frm, text="Login", command=complete_sign_in).grid(column=1, row=2)
 
-    # Used to run program
-    root.mainloop()
-
     # Used to call main ToDoList function
     todo = ToDoList()
+
+    # Used to run program
+    root.mainloop()
 
     # Get information to save for ToDoList
     name = input("What is your username for to list? ")
     password = input("What is the password for this account? ")
-
-    # If there is an account present with this name
-    if(todo.check_account(name)):
-        while(True):
-
-            # Condition with incorrect verification 
-            if(todo.verify_account(name, password) is False):
-                password = input("Incorrect Password, what is the password for this account? ")
-            # When password is correct, break out of loop
-            else:
-                break
-                    
-    # If no account has this name yet? 
-    else:
-        todo.create_account(name, password)
 
     # New information to write for ToDoList
     while(True):
@@ -158,3 +184,5 @@ if __name__ == "__main__":
 
 # Need to add UI with functions, Have ability to edit items, have ability to delete items, Have user sign-in, store information in database 
 # Move functionality to different modules, Add UI for users 
+
+# Need to load in list items. Need to add create section account 
