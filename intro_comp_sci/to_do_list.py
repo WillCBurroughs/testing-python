@@ -78,17 +78,18 @@ def validate_user():
         if not todo.verify_account(name, password):
             incorrect_password()
         else:
-            switch_to_main()
+            switch_to_main(name, password)
     else:
         todo.create_account(name, password)
-        switch_to_main()
+        switch_to_main(name, password)
+
 
 # Used to flash incorrect password
 def incorrect_password():
     incorrect_password_label = ttk.Label(frm, text="Incorrect Password, try again or create new account")
     incorrect_password_label.grid(column=1, row=3)
 
-def switch_to_main():
+def switch_to_main(name, password):
     # Need to change name of root 
     root.title("To Do App")
 
@@ -96,9 +97,18 @@ def switch_to_main():
     frm.destroy()
 
     # Need to add new frame and load in called in values
+    global new_home
     new_home = ttk.Frame(root, padding=10)
-    
+    new_home.grid()
+
     ttk.Label(new_home, text="Here are your list items: ").grid(column=0, row=0)
+
+    items = todo.read_profile(name, password)
+
+    for idx, item in enumerate(items, start=1):
+        ttk.Label(new_home, text=f"{idx}. {item}").grid(column=0, row=idx)
+
+    new_home.pack()
 
     new_home.pack()
 
@@ -185,4 +195,5 @@ if __name__ == "__main__":
 # Need to add UI with functions, Have ability to edit items, have ability to delete items, Have user sign-in, store information in database 
 # Move functionality to different modules, Add UI for users 
 
-# Need to load in list items. Need to add create section account 
+# Need to load in list items. Need to add create section account, Need to cleanup code base, Need to save values in DB 
+# Need to deploy project 
