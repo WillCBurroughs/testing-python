@@ -83,7 +83,6 @@ def validate_user():
         todo.create_account(name, password)
         switch_to_main(name, password)
 
-
 # Used to flash incorrect password
 def incorrect_password():
     incorrect_password_label = ttk.Label(frm, text="Incorrect Password, try again or create new account")
@@ -103,12 +102,14 @@ def switch_to_main(name, password):
 
     ttk.Label(new_home, text="Here are your list items: ").grid(column=0, row=0)
 
+    
     items = todo.read_profile(name, password)
 
+    idx = 0
     for idx, item in enumerate(items, start=1):
         ttk.Label(new_home, text=f"{idx}. {item}").grid(column=0, row=idx)
 
-    new_home.pack()
+    ttk.Button(new_home, text="Add a list item? ").grid(column=1, row = idx + 1)
 
     new_home.pack()
 
