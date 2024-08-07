@@ -3,7 +3,6 @@ import os
 from tkinter import *
 from tkinter import ttk
 
-
 class ToDoList:
     def __init__(self):
         self.accounts = {}
@@ -61,7 +60,7 @@ class ToDoList:
             if 0 <= index < len(self.accounts[name]['to_do_items']):
                 del self.accounts[name]['to_do_items'][index] 
                 self.save_data()
-                return "Item edited successfully."
+                return "Item deleted successfully."
             else:
                 return "Invalid index."
         return "Incorrect password or account does not exist."
@@ -88,40 +87,55 @@ def incorrect_password():
     incorrect_password_label = ttk.Label(frm, text="Incorrect Password, try again or create new account")
     incorrect_password_label.grid(column=1, row=3)
 
-def switch_to_main(name, password):
-    # Need to change name of root 
-    root.title("To Do App")
+def add_list_item(name, password):
+    new_item = new_item_entry.get()
+    if new_item:
+        todo.add_item(name, password, new_item)
+        # Clear the entry field
+        new_item_entry.delete(0, END)
+        # Refresh the list display
+        update_list_display(name, password)
 
-    # Need to remove frame and add new frame 
-    frm.destroy()
-
-    # Need to add new frame and load in called in values
-    global new_home
-    new_home = ttk.Frame(root, padding=10)
-    new_home.grid()
+def update_list_display(name, password):
+    # Clear existing items
+    for widget in new_home.winfo_children():
+        widget.destroy()
 
     ttk.Label(new_home, text="Here are your list items: ").grid(column=0, row=0)
 
-    
     items = todo.read_profile(name, password)
 
     idx = 0
     for idx, item in enumerate(items, start=1):
         ttk.Label(new_home, text=f"{idx}. {item}").grid(column=0, row=idx)
 
-    ttk.Button(new_home, text="Add a list item? ").grid(column=1, row = idx + 1)
+    new_item_entry.grid(column=0, row=idx + 1)
+    add_item_button.grid(column=1, row=idx + 1)
 
-    new_home.pack()
+def switch_to_main(name, password):
+    # Need to change name of root 
+    root.title("To Do App")
+
+    # Need to remove frame and add new frame 
+    for widget in root.winfo_children():
+        widget.destroy()
+
+    # Need to add new frame and load in called in values
+    global new_home, new_item_entry, add_item_button
+    new_home = ttk.Frame(root, padding=10)
+    new_home.grid()
+
+    new_item_entry = ttk.Entry(new_home)
+    add_item_button = ttk.Button(new_home, text="Add a list item", command=lambda: add_list_item(name, password))
+
+    update_list_display(name, password)
 
 # changing name of root 
 def complete_sign_in():
-
     # Need to validate user sign in, then switch to main
-    if validate_user():
-        switch_to_main()
+    validate_user()
 
 def main():
-
     global save_name, save_password, root, frm, new_home, ttk, todo
 
     # Allows for main call to Tkinter 
@@ -143,7 +157,7 @@ def main():
     # Main label of grid 
     ttk.Label(frm, text="Password: ").grid(column=0, row=1)
 
-    # Input for name 
+    # Input for password 
     save_password = ttk.Entry(frm, show='*')
     save_password.grid(column=1, row=1)
 
@@ -156,43 +170,9 @@ def main():
     # Used to run program
     root.mainloop()
 
-    # Get information to save for ToDoList
-    name = input("What is your username for to list? ")
-    password = input("What is the password for this account? ")
-
-    # New information to write for ToDoList
-    while(True):
-        items = todo.read_profile(name, password)
-        print(items)
-        action = input("What would you like to do? (add/edit/delete/quit) ").lower()
-        if action == "quit":
-            break
-        elif action == "add":
-            new_items = input("What value would you like to add? ")
-            todo.add_item(name, password, new_items)
-        elif action == "edit":
-            try:
-                index = int(input("Enter the index of the item you want to edit: "))
-                new_info = input("Enter the new information: ")
-                result = todo.edit_information(name, password, index, new_info)
-                print(result)
-            except ValueError:
-                print("Please enter a valid number for the index.")
-        elif action == "delete":
-            try:
-                index = int(input("Enter the index of the item you want to delete: "))
-                result = todo.delete_item(name, password, index)
-                print(result)
-            except ValueError:
-                print("Please enter a valid number for the index.")
-        else:
-            print("Invalid action. Please choose 'add', 'edit', 'delete', or 'quit'.")
-
-    print("Thank you for using ToDoList")
-
 if __name__ == "__main__":
     main()
-
+    
 # Need to add UI with functions, Have ability to edit items, have ability to delete items, Have user sign-in, store information in database 
 # Move functionality to different modules, Add UI for users 
 
